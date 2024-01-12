@@ -3,45 +3,10 @@
  * Description: Stack array implementation in C using chars
  * Date: 1/11/2024
 */
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include "stack.h"
 
 /* the size of a stack's array starts at 100 */
 #define ARR_SIZE 100
-
-/* stack struct */
-struct stack {
-    // the array behind the scenes
-    char *arr;
-    // the index of the stack's top value
-    int top;
-};
-
-/* prototypes */
-struct stack arr_to_stack(char arr[], size_t arr_length);
-struct stack newStack(int argc, ...);
-void push(char data, struct stack *stack);
-char pop(struct stack *stack);
-char peek(struct stack *stack);
-int isEmpty(struct stack *stack);
-void reverse(struct stack *stack);
-void printStack(struct stack *stack);
-
-/* main */ 
-int main(int argc, char *argv[])
-{   
-    // reversing a word
-    struct stack hamood = newStack(6, 'h', 'a', 'm', 'o', 'o', 'd');
-    printStack(&hamood);
-    
-    struct stack doomah = newStack(0);
-    while(!isEmpty(&hamood)) { push(pop(&hamood), &doomah); }
-    printStack(&doomah);
-
-    printf("\n");
-    return 0;
-}
 
 /* converts a given array to a stack */
 struct stack arr_to_stack(char arr[], size_t arr_length) {
