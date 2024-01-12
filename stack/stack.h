@@ -22,5 +22,4 @@ void push(char data, struct stack *stack);
 char pop(struct stack *stack);
 char peek(struct stack *stack);
 int isEmpty(struct stack *stack);
-void reverse(struct stack *stack);
 void printStack(struct stack *stack);
