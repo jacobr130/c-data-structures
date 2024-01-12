@@ -1,6 +1,6 @@
 /**
  * Author: Jacob Rice
- * Description: Queue array implementation in C using chars
+ * Description: Stack array implementation in C using chars
  * Date: 1/11/2024
 */
 #include <stdio.h>
