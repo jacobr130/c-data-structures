@@ -5,13 +5,14 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 /* prototypes 
  * all functions manipulating a list take in the address
  * of the list to be altered because when you pass an actual
  * list, a copy is made and the original remains unchanged
 */
-struct LinkedList newLinkedList();
+struct LinkedList newLinkedList(int argc, ...);
 struct LinkedList array_to_list(int *arr, size_t arr_size);
 void append(int data, struct LinkedList *list);
 void prepend(int data, struct LinkedList *list);
@@ -43,15 +44,19 @@ struct LinkedList {
 int main(int argc, char* argv[])
 {   
     // initialize a new linked list
-    struct LinkedList list = newLinkedList();
+    struct LinkedList list = newLinkedList(0);
 
     // array to linked list
     int arr[5] = {1, 2, 3, 4, 5};
     list = array_to_list(arr, sizeof(arr) / sizeof(int));
     printForward(list);
 
-    struct LinkedList empty_list = newLinkedList();
+    // initializing a new list
+    struct LinkedList empty_list = newLinkedList(0);
     printForward(empty_list);   // gives error if list is empty
+
+    struct LinkedList initialized_list = newLinkedList(6, 1, 2, 3, 4, 5, 6);
+    printForward(initialized_list);
 
     // append
     append(6, &list);   
@@ -89,12 +94,37 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-/* creates a new linked list and sets head and tail to NULL */
-struct LinkedList newLinkedList() {
+/* creates a new linked list. argc is list length. takes int args */
+struct LinkedList newLinkedList(int argc, ...) {
     struct LinkedList list;
-    list.head = NULL;
-    list.tail = NULL;
-    list.size = 0;
+    list.size = argc;
+
+    va_list vaList;
+
+    if(argc > 0) {
+        va_start(vaList, argc);
+        
+        // need to start with head and tail because of append()
+        struct Node *first = malloc(NODE_SIZE);
+        first->data = va_arg(vaList, int);
+
+        struct Node *second = malloc(NODE_SIZE);
+        second->data = va_arg(vaList, int);
+
+        list.head = first;
+        list.tail = second;
+        list.head->next = list.tail;
+
+        int count = 0;
+        for(int i=0; i<argc-2; i++) {
+            append(va_arg(vaList, int), &list);
+        }
+    }
+    else {
+        list.head = NULL;
+        list.tail = NULL;
+    }
+
     return list;
 }
 
