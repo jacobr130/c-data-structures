@@ -152,6 +152,14 @@ void deleteAt(int index, struct LinkedList *list) {
         return;
     }
 
+    // if the list is only the node being deleted
+    if(list->size == 1) {
+        free(list->head);
+        list->head = NULL;
+        list->size--;
+        return;
+    }
+
     struct Node *cur = malloc(NODE_SIZE);
     cur = list->head;
 
