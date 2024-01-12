@@ -3,7 +3,6 @@
  * Description: compile w/ gcc -o example example.c stack.c
  * Date: 01/12/2024
 */
-
 #include "stack.h"
 
 /* main */ 
