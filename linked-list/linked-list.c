@@ -113,7 +113,6 @@ struct LinkedList newLinkedList(int argc, ...) {
 
         list.head = first;
         list.tail = second;
-        list.head->next = list.tail;
 
         int count = 0;
         for(int i=0; i<argc-2; i++) {
