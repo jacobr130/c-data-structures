@@ -93,8 +93,15 @@ void append(int data, struct LinkedList *list) {
     new->data = data;
     new->next = NULL;
 
-    list->tail->next = new;
-    list->tail = new;
+    if(list->head == NULL) {
+        list->head = new;
+        list->tail = new;
+    }
+    else {
+        list->tail->next = new;
+        list->tail = new;
+    }
+
     list->size++;
 }
 
@@ -160,16 +167,31 @@ void deleteAt(int index, struct LinkedList *list) {
         return;
     }
 
-    struct Node *cur = malloc(NODE_SIZE);
-    cur = list->head;
+    struct Node *cur = list->head;
+
+    struct Node *prev = NULL;
 
     // walk the list to before index
-    for(int i=0; i<index-1; i++) {
+    for(int i=0; i<index; i++) {
+        prev = cur;
         cur = cur->next;
     }
 
-    // jump over the deleted node
-    cur->next = cur->next->next;
+    if(prev != NULL) {
+        prev->next = cur->next;
+        if(cur->next == NULL) {
+            list->tail = prev;
+        }
+    }
+    else {
+        list->head = cur->next;
+        if(list->head == NULL) {
+            list->tail = NULL;
+        }
+    }
+
+    free(cur);
+    list->size--;
 }
 
 /* inserts a value to a linked list at the given index */
