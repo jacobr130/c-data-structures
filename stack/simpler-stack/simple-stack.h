@@ -3,7 +3,7 @@
  * Description: A header file for simple-stack
  * Date: 01/12/2024
 */
-#include "../../linked-list/linked-list.h"
+#include "../linked-list/linked-list.h"
 
 struct stack {
     // the linked list behind the scenes
