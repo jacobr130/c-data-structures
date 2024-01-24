@@ -21,8 +21,8 @@ class LinkedList
         // default
         LinkedList()
         {
-            this->head = NULL;
-            this->tail = NULL;
+            this->head = nullptr;
+            this->tail = nullptr;
             this->count = 0;
         }
 
@@ -31,6 +31,7 @@ class LinkedList
         {
             size_t argc = args.size();
             this->head = new Node(args[0]);
+            this->tail = nullptr;
 
             if(argc > 1)
             {
